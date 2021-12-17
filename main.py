@@ -117,7 +117,7 @@ class livesplugin(StellarPlayer.IStellarPlayerPlugin):
 
     def onXLClick(self, page, listControl, item, itemControl):
         url = self.allxlsdata[page][item]
-        xlname = page + ' 线路' + str(item) 
+        xlname = page + ' 线路' + str(item + 1) 
         self.player.play(url, caption=xlname)
     
     def loading(self, stopLoading = False):
