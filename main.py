@@ -48,11 +48,15 @@ class livesplugin(StellarPlayer.IStellarPlayerPlugin):
         file.close()    
     
     def show(self):
-        for item in self.source:
-            controls = self.makeGroupLayout(item)
-            self.allmovidesdata[item['group']] = item['channels']
-            if not self.player.isModalExist(item['group']):
-                self.player.createTab(item['group'],item['group'], controls)     
+        if hasattr(self.player, 'createTab'):
+            for item in self.source:
+                controls = self.makeGroupLayout(item)
+                self.allmovidesdata[item['group']] = item['channels']
+                if not self.player.isModalExist(item['group']):
+                    self.player.createTab(item['group'],item['group'], controls)
+        else:
+            self.player.showText('播放器版本过低，不支持此插件')
+            #self.player.showNotify('错误', '播放器版本过低，不支持此插件,请升级播放器')
     
     def makeGroupLayout(self,group):
         mediagrid_layout = [
