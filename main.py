@@ -67,7 +67,9 @@ class livesplugin(StellarPlayer.IStellarPlayerPlugin):
             ]
         ]
         controls = [
-            {'type':'space','height':15},
+            {'type':'space','height':5},
+            {'type':'label','height':15,'name':group['group'],'height':30},
+            {'type':'space','height':5},
             {'type':'grid','name':'mediagrid','itemlayout':mediagrid_layout,'value':group['channels'],'separator':True,'itemheight':40,'itemwidth':180},
             {'type':'space','height':15}
         ]
@@ -81,7 +83,7 @@ class livesplugin(StellarPlayer.IStellarPlayerPlugin):
             self.createMediaFrame(mediainfo)
         else:
             tvurl = mediainfo['urls'][0]
-            self.player.play(tvurl)
+            self.player.play(tvurl, caption=mediainfo['name'])
         
     def createMediaFrame(self,mediainfo):
         medianame = mediainfo['name']
@@ -114,10 +116,9 @@ class livesplugin(StellarPlayer.IStellarPlayerPlugin):
             #result,control = self.doModal(mediainfo['name'],680,400,'',controls)
 
     def onXLClick(self, page, listControl, item, itemControl):
-        print(self.allxlsdata[page])
         url = self.allxlsdata[page][item]
-        print(url)
-        self.player.play(url)
+        xlname = page + ' 线路' + str(item) 
+        self.player.play(url, caption=xlname)
     
     def loading(self, stopLoading = False):
         if hasattr(self.player,'loadingAnimation'):
