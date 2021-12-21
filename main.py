@@ -29,7 +29,8 @@ class livesplugin(StellarPlayer.IStellarPlayerPlugin):
                     print("Unable to copy file. %s" % e)
                 except:
                     print("Unexpected error:", sys.exc_info())
-        down_url = "https://cdn.jsdelivr.net/gh/fj365/CMP4@master/0/9.json"
+        #down_url = "https://cdn.jsdelivr.net/gh/fj365/CMP4@master/0/8.json"
+        down_url = "http://fj365.ml/m.json"
         try:
             r = requests.get(down_url,timeout = 5,verify=False) 
             result = r.status_code
@@ -59,6 +60,7 @@ class livesplugin(StellarPlayer.IStellarPlayerPlugin):
             #self.player.showNotify('错误', '播放器版本过低，不支持此插件,请升级播放器')
     
     def makeGroupLayout(self,group):
+        channelname = group['group']
         mediagrid_layout = [
             [
                 {
@@ -72,7 +74,7 @@ class livesplugin(StellarPlayer.IStellarPlayerPlugin):
         ]
         controls = [
             {'type':'space','height':5},
-            {'type':'label','height':15,'name':group['group'],'height':30},
+            {'type':'label','height':15,'name':channelname,'height':30},
             {'type':'space','height':5},
             {'type':'grid','name':'mediagrid','itemlayout':mediagrid_layout,'value':group['channels'],'separator':True,'itemheight':40,'itemwidth':180},
             {'type':'space','height':15}
